@@ -9,9 +9,9 @@
 - an HtmlAgilityPack extension to select elements using css selector (like JQuery)</Description>
     <Copyright>Copyright 2011 Romain Flechner</Copyright>
     <NeutralLanguage>fr-FR</NeutralLanguage>
-    <Authors>Romain Flechner</Authors>
+    <Authors>Sriram Sakthivel (Original Author - Romain Flechner)</Authors>
     <OutputType>Library</OutputType>
-    <PackageId>ScrapySharp</PackageId>
+    <PackageId>UnOfficial.ScrapySharp.Xamarin.Android</PackageId>
     <PackageTags>Scraping;html;css;linq;agility</PackageTags>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageIconUrl></PackageIconUrl>
@@ -20,14 +20,19 @@
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <RepositoryType>hg</RepositoryType>
     <RepositoryUrl>https://github.com/rflechner/ScrapySharp.git</RepositoryUrl>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>1.0.1</Version>
+    <Company>Romain Flechner</Company>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.7.*" />
     <PackageReference Include="FSharp.Core" Version="4.*" />
-    <PackageReference Include="System.Runtime.Caching" Version="4.5.0-preview1-26216-02" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.6" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ScrapySharp.Core\ScrapySharp.Core.fsproj" PrivateAssets="All"/>
+    <ProjectReference Include="..\ScrapySharp.Core\ScrapySharp.Core.fsproj" PrivateAssets="All" />
   </ItemGroup>
   <Target Name="IncludeP2PAssets">
     <ItemGroup>

@@ -1,6 +1,6 @@
 using System;
 using ScrapySharp.Network;
-using System.Runtime.Caching;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace ScrapySharp.Cache
 {
@@ -16,22 +16,20 @@ namespace ScrapySharp.Cache
 
         private void Initialize()
         {
-            cache = new MemoryCache(basePath);
+            cache = new MemoryCache(new MemoryCacheOptions());
         }
 
         public void Save(WebResource webResource)
         {
-            var cacheItem = new CacheItem(webResource.AbsoluteUrl.ToString(), webResource);
-            var policy = new CacheItemPolicy
-                {
-                    AbsoluteExpiration = new DateTimeOffset(DateTime.UtcNow.AddHours(2))
-                };
-            cache.AddOrGetExisting(cacheItem, policy);
+            var cacheItem = new CacheItem<WebResource>(webResource.AbsoluteUrl.ToString(), webResource);
+            var absoluteExpiration = new DateTimeOffset(DateTime.UtcNow.AddHours(2));
+
+            cache.Set(cacheItem.Key, cacheItem, absoluteExpiration);
         }
 
         public bool Exists(string key)
         {
-            return cache.GetCacheItem(key) != null;
+            return cache.TryGetValue(key, out var result);
         }
 
         private static WebResourceStorage current;
@@ -45,5 +43,17 @@ namespace ScrapySharp.Cache
                 return current;
             }
         }
+    }
+
+    internal class CacheItem<TValue>
+    {
+      public CacheItem(string key, TValue value)
+      {
+        Key = key;
+        Value = value;
+      }
+
+      public string Key { get; set; }
+      public TValue Value { get; set; }
     }
 }
